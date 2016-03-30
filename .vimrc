@@ -10,6 +10,7 @@ set confirm
 set clipboard+=unnamed
 """"设置背景颜色
 set background=dark
+""""设置行号
 set nu
 """"语法高亮
 syntax on
@@ -28,7 +29,6 @@ setlocal noswapfile
 set bufhidden=hide
 """"高亮显示匹配的括号
 set showmatch
-
 """"在状态行上显示光标所在位置的行号和列号
 set ruler
 set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%))
@@ -40,22 +40,50 @@ set incsearch
 set showcmd
 set autoread
 set completeopt=preview,menu
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
-if has("vms")
-	set nobackup
-else
-	set backup
-endif
-"""""启用鼠标
+""""设置编码
+set encoding=utf-8
+set fileencodings=utf-8,gb2312,gb18030,ucs-bom,gbk,cp936,latin-1
+""""设置不自动备份
+set nobackup
+""""启用鼠标
 """"set mouse=a
-
-"""""自动补全括号引号
+""""自动补全括号引号
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {}<ESC>i
+"""""设置大括号自动对齐
+set cindent
 """"inoremap < <><ESC>i
 inoremap " ""<ESC>i
 inoremap ' ''<ESC>i
+""""启用折叠
+""""set foldenable
+set foldmethod=syntax
+" 用空格键来开关折叠
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+set nofoldenable
+" 当文件在外部被修改，自动更新该文件
+set autoread
+""""搜索模式忽略大小写
+set ignorecase
+" Ctrl + K 插入模式下光标向上移动
+imap <c-k> <Up>
+" Ctrl + J 插入模式下光标向下移动
+imap <c-j> <Down>
+" Ctrl + H 插入模式下光标向左移动
+imap <c-h> <Left>
+" Ctrl + L 插入模式下光标向右移动
+imap <c-l> <Right>
+" 每行超过180个的字符用下划线标示
+au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 180 . 'v.\+', -1)
+set laststatus=2                                      "启用状态栏信息
+set statusline=%t\ %1*%m%*\ %1*%r%*\ %2*%h%*%w%=%l%3*/%L(%p%%)%*,%c%V]\ [%b:0x%B]\ [%{&ft==''?'TEXT':toupper(&ft)},%{toupper(&ff)},%{toupper(&fenc!=''?&fenc:&enc)}%{&bomb?',BOM':''}%{&eol?'':',NOEOL'}]
+
+
+
+
+
+
 """"""""""""""""""""""
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java,.py,.js文件，自动插入文件头 
@@ -181,6 +209,11 @@ endfunc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
 "键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -227,5 +260,3 @@ func! Rungdb()
     exec "!g++ % -g -o %<"
     exec "!gdb ./%<"
 endfunc
-
-
