@@ -2,6 +2,8 @@
 set nocompatible
 """"侦测文件类型
 filetype on
+""""打开插件功能
+filetype plugin indent on
 """"history文件中需要记录的行数
 set history=1000
 """"在处理未保存或只读文件的时候，弹出确认
@@ -12,6 +14,8 @@ set clipboard+=unnamed
 set background=dark
 """"设置行号
 set nu
+""""显示相对行号
+set relativenumber
 """"语法高亮
 syntax on
 """"状态行颜色
@@ -66,6 +70,8 @@ set nofoldenable
 set autoread
 """"搜索模式忽略大小写
 set ignorecase
+""""设置搜索时高亮
+set hls
 " Ctrl + K 插入模式下光标向上移动
 imap <c-k> <Up>
 " Ctrl + J 插入模式下光标向下移动
@@ -223,9 +229,9 @@ endfunc
 nmap <leader>w :w!<cr>
 nmap <leader>f :find<cr>
 
-" 映射全选+复制 ctrl+a
-map <C-A> ggVGY
-map! <C-A> <Esc>ggVGY
+""""按虚拟行移动
+noremap <silent><expr> j (v:count==0?'gj':'j')
+noremap <silent><expr> k (v:count==0?'gk':'k')
 map <F12> gg=G
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
