@@ -5,7 +5,7 @@ filetype on
 """"打开插件功能
 filetype plugin indent on
 """"history文件中需要记录的行数
-set history=1000
+set history=200
 """"在处理未保存或只读文件的时候，弹出确认
 set confirm
 """"与windows共享剪贴板
@@ -80,11 +80,23 @@ imap <c-j> <Down>
 imap <c-h> <Left>
 " Ctrl + L 插入模式下光标向右移动
 imap <c-l> <Right>
+""""capslock为esc键
+imap <CapsLock> <esc>
 " 每行超过180个的字符用下划线标示
 au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 180 . 'v.\+', -1)
 set laststatus=2                                      "启用状态栏信息
 set statusline=%t\ %1*%m%*\ %1*%r%*\ %2*%h%*%w%=%l%3*/%L(%p%%)%*,%c%V]\ [%b:0x%B]\ [%{&ft==''?'TEXT':toupper(&ft)},%{toupper(&ff)},%{toupper(&fenc!=''?&fenc:&enc)}%{&bomb?',BOM':''}%{&eol?'':',NOEOL'}]
-
+""""自动补全
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascrīpt set omnifunc=javascrīptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+""""设置命令行模式下的tab按键为显示所有匹配项
+set wildmenu
+set wildmode=full
 
 
 
@@ -260,6 +272,8 @@ func! CompileRunGcc()
         exec "!java %<"
     elseif &filetype == 'sh'
         :!./%
+    elseif &filetype == 'python'
+        exec "!python3 %"
     endif
 endfunc
 "C,C++的调试
