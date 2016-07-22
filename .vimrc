@@ -105,7 +105,7 @@ set wildmode=full
 """"""""""""""""""""""
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java,.py,.js文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.tex,*.py,*.js,*.java,*.txt exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.tex,*.py,*.js,*.java,*.txt,*.html exec ":call SetTitle()" 
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
     "如果文件类型为.sh文件 
@@ -223,6 +223,18 @@ func SetTitle()
         call append(line(".")+3, "    > Created Time: ".strftime("%Y-%m-%d %H:%M:%S")) 
         call append(line(".")+4, " ************************************************************************/") 
         call append(line(".")+5, "")
+    endif
+    "如果文件类型为.html文件
+    if &filetype == 'html'
+        call setline(1, "<!DOCTPYE html>") 
+        call append(line("."), "<html lang=\"en\">") 
+        call append(line(".")+1, "<head>") 
+        call append(line(".")+2, "    <meta charset=\"UTF-8\">") 
+        call append(line(".")+3, "    <title></title>") 
+        call append(line(".")+4, "</head>") 
+        call append(line(".")+5, "<body>")
+        call append(line(".")+6, "</body>")
+        call append(line(".")+7, "</html>")
     endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
