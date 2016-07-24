@@ -4,6 +4,8 @@ set nocompatible
 filetype on
 """"打开插件功能
 filetype plugin indent on
+""""激活matchit
+runtime macros/matchit.vim
 """"history文件中需要记录的行数
 set history=200
 """"在处理未保存或只读文件的时候，弹出确认
@@ -97,6 +99,10 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 """"设置命令行模式下的tab按键为显示所有匹配项
 set wildmenu
 set wildmode=full
+""""映射%%为%:h<tab>
+cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
+""""设置path
+set path+=/home/yqnku/Programming/**
 
 
 
@@ -295,3 +301,11 @@ func! Rungdb()
     exec "!g++ % -g -o %<"
     exec "!gdb ./%<"
 endfunc
+
+
+
+""""这只是临时的按键映射
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
