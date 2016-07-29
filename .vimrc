@@ -74,6 +74,8 @@ set autoread
 set ignorecase
 """"设置搜索时高亮
 set hls
+""""ctrl + G 插入模式下删除一个字符
+""""map <c-g> <ESC>
 " Ctrl + K 插入模式下光标向上移动
 imap <c-k> <Up>
 " Ctrl + J 插入模式下光标向下移动
@@ -82,8 +84,8 @@ imap <c-j> <Down>
 imap <c-h> <Left>
 " Ctrl + L 插入模式下光标向右移动
 imap <c-l> <Right>
-""""capslock为esc键
-imap <CapsLock> <esc>
+""""插入模式下jj为ESC
+imap jj <ESC>
 " 每行超过180个的字符用下划线标示
 au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 180 . 'v.\+', -1)
 set laststatus=2                                      "启用状态栏信息
