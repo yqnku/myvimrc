@@ -20,6 +20,8 @@ set nu
 set relativenumber
 """"语法高亮
 syntax on
+""""设置智能查找
+set smartcase
 """"状态行颜色
 highlight StatusLine guifg=SlateBlue guibg=Yellow
 highlight StatusLineNC guifg=Gray guibg=White
@@ -84,8 +86,6 @@ imap <c-j> <Down>
 imap <c-h> <Left>
 " Ctrl + L 插入模式下光标向右移动
 imap <c-l> <Right>
-""""插入模式下jj为ESC
-imap jj <ESC>
 " 每行超过180个的字符用下划线标示
 au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 180 . 'v.\+', -1)
 set laststatus=2                                      "启用状态栏信息
@@ -105,7 +105,11 @@ set wildmode=full
 cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
 """"设置path
 set path+=/home/yqnku/Programming/**
+""""编辑状态下 ctrl-u转换为大写
+inoremap <C-u> <esc>gUiwea
 
+au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 
 
