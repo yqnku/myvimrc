@@ -1,95 +1,133 @@
+"""" 基本配置
+
 """" 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
+
 """"侦测文件类型
 filetype on
+
 """"打开插件功能
 filetype plugin indent on
+
 """"激活matchit
 runtime macros/matchit.vim
+
 """"history文件中需要记录的行数
 set history=200
+
 """"在处理未保存或只读文件的时候，弹出确认
 set confirm
+
 """"与windows共享剪贴板
 set clipboard+=unnamed
+
 """"设置背景颜色
 set background=dark
+
 """"设置行号
 set nu
+
 """"显示相对行号
 set relativenumber
+
 """"语法高亮
 syntax on
+
 """"设置智能查找
 set smartcase
+
 """"状态行颜色
 highlight StatusLine guifg=SlateBlue guibg=Yellow
 highlight StatusLineNC guifg=Gray guibg=White
+
 set autoindent
+
 set smartindent
+
 """"设置tab键为4个空格，并且自动转换tab为四个空格
 set tabstop=4
 set expandtab
 set autoindent
 set shiftwidth=4
+
 """"不要生成swap文件，当buffer被丢弃的时候隐藏它
 setlocal noswapfile
 set bufhidden=hide
+
 """"高亮显示匹配的括号
 set showmatch
+
 """"在状态行上显示光标所在位置的行号和列号
 set ruler
 set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%))
+
 """"使回格键（backspace）正常处理indent, eol, start等
 set backspace=2
+
 """"在被分割的窗口间显示空白，便于阅读
 set fillchars=vert:\ ,stl:\ ,stlnc:\
+
 set incsearch
 set showcmd
 set autoread
 set completeopt=preview,menu
+
 """"设置编码
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,ucs-bom,gbk,cp936,latin-1
+
 """"设置不自动备份
 set nobackup
 """"启用鼠标
 """"set mouse=a
+
 """"自动补全括号引号
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {}<ESC>i
+
 """""设置大括号自动对齐
 set cindent
+
 """"inoremap < <><ESC>i
 inoremap " ""<ESC>i
 inoremap ' ''<ESC>i
-""""启用折叠
-""""set foldenable
+
+"""" 启用折叠
+"""" set foldenable
 set foldmethod=syntax
-" 用空格键来开关折叠
+"""" 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 set nofoldenable
-" 当文件在外部被修改，自动更新该文件
+
+"""" 当文件在外部被修改，自动更新该文件
 set autoread
+
 """"搜索模式忽略大小写
 set ignorecase
+
 """"设置搜索时高亮
 set hls
+
 """"ctrl + G 插入模式下删除一个字符
 """"map <c-g> <ESC>
-" Ctrl + K 插入模式下光标向上移动
+
+"""" Ctrl + K 插入模式下光标向上移动
 imap <c-k> <Up>
-" Ctrl + J 插入模式下光标向下移动
+"""" Ctrl + J 插入模式下光标向下移动
 imap <c-j> <Down>
-" Ctrl + H 插入模式下光标向左移动
+"""" Ctrl + H 插入模式下光标向左移动
 imap <c-h> <Left>
-" Ctrl + L 插入模式下光标向右移动
+"""" Ctrl + L 插入模式下光标向右移动
 imap <c-l> <Right>
-" 每行超过180个的字符用下划线标示
+
+"""" 每行超过180个的字符用下划线标示
 au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 180 . 'v.\+', -1)
-set laststatus=2                                      "启用状态栏信息
+
+""""启用状态栏信息
+set laststatus=2
 set statusline=%t\ %1*%m%*\ %1*%r%*\ %2*%h%*%w%=%l%3*/%L(%p%%)%*,%c%V]\ [%b:0x%B]\ [%{&ft==''?'TEXT':toupper(&ft)},%{toupper(&ff)},%{toupper(&fenc!=''?&fenc:&enc)}%{&bomb?',BOM':''}%{&eol?'':',NOEOL'}]
+
 """"自动补全
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascrīpt set omnifunc=javascrīptcomplete#CompleteJS
@@ -98,18 +136,24 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
+
 """"设置命令行模式下的tab按键为显示所有匹配项
 set wildmenu
 set wildmode=full
+
 """"映射%%为%:h<tab>
 cnoremap <expr> %% getcmdtype()==':'?expand('%:h').'/':'%%'
+
 """"设置path
 set path+=/home/yqnku/Programming/**
+
 """"编辑状态下 ctrl-u转换为大写
 inoremap <C-u> <esc>gUiwea
 
-au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+""""au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+""""au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+inoremap jj <ESC>
 
 
 
